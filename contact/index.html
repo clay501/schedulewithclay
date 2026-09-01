@@ -28,22 +28,22 @@
     <div class="rule"><i></i></div>
 
     <div id="success-box" class="success-box" style="display:none">
-      <p class="success-label">Ready to send</p>
-      <p>Your email client should have opened with this inquiry addressed to Clay. If it did not open, email <a href="mailto:clay@sunflowerradiance.com">clay@sunflowerradiance.com</a> directly with your details.</p>
+      <p class="success-label">Inquiry sent</p>
+      <p>Thanks &mdash; your message has been sent to Clay and he'll be in touch shortly. If you don't hear back, email <a href="mailto:clay@sunflowerradiance.com">clay@sunflowerradiance.com</a> directly.</p>
     </div>
 
-    <form id="contact-form" class="form">
+    <form id="contact-form" class="form" action="https://formspree.io/f/xvkokjld" method="POST">
       <div class="row2">
-        <div class="field"><label for="firstName">First name</label><input id="firstName" type="text" required placeholder="George"></div>
-        <div class="field"><label for="lastName">Last name</label><input id="lastName" type="text" required placeholder="Glass"></div>
+        <div class="field"><label for="firstName">First name</label><input id="firstName" name="firstName" type="text" required placeholder="George"></div>
+        <div class="field"><label for="lastName">Last name</label><input id="lastName" name="lastName" type="text" required placeholder="Glass"></div>
       </div>
       <div class="row2">
-        <div class="field"><label for="email">Email</label><input id="email" type="email" required placeholder="you@email.com"></div>
-        <div class="field"><label for="phone">Phone</label><input id="phone" type="tel" required placeholder="(215) 555-0100"></div>
+        <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" required placeholder="you@email.com"></div>
+        <div class="field"><label for="phone">Phone</label><input id="phone" name="phone" type="tel" required placeholder="(215) 555-0100"></div>
       </div>
       <div class="field">
         <label for="location">Location</label>
-        <select id="location" required>
+        <select id="location" name="location" required>
           <option value="">Select one</option>
           <option value="Pennsylvania">Pennsylvania</option>
           <option value="Other">Other</option>
@@ -59,15 +59,16 @@
       </div>
       <div class="field" id="insurance-field" style="display:none">
         <label for="insurance">Insurance payer</label>
-        <select id="insurance">
+        <select id="insurance" name="insurance">
           <option value="">Select one</option>
         </select>
       </div>
       <div class="field">
         <label for="reason">What brings you to therapy?</label>
-        <textarea id="reason" rows="5" required placeholder="Share what's going on and what you're hoping to work on."></textarea>
+        <textarea id="reason" name="reason" rows="5" required placeholder="Share what's going on and what you're hoping to work on."></textarea>
       </div>
       <label class="check-row"><input type="checkbox" id="consent"><span>I consent to be contacted by Clay Klaus-Wade by email or phone regarding this inquiry.</span></label>
+      <input type="hidden" name="_subject" id="subject-field" value="New client inquiry">
       <p class="form-error" id="form-error" style="display:none"></p>
       <button type="submit" class="submit-btn">Send inquiry</button>
     </form>
@@ -101,6 +102,7 @@
 
   var form = document.getElementById('contact-form');
   var errorEl = document.getElementById('form-error');
+  var submitBtn = form.querySelector('.submit-btn');
   form.addEventListener('submit', function(e){
     e.preventDefault();
     var firstName = document.getElementById('firstName').value.trim();
@@ -130,23 +132,43 @@
       return;
     }
     errorEl.style.display = 'none';
+    document.getElementById('subject-field').value = 'New client inquiry - ' + firstName + ' ' + lastName;
 
-    var lines = [
-      'First name: ' + firstName,
-      'Last name: ' + lastName,
-      'Email: ' + email,
-      'Phone: ' + phone,
-      'Location: ' + location,
-      'Payment: ' + payment + (payment === 'Insurance' ? ' - ' + insurance : ''),
-      '',
-      'What brings you to therapy?',
-      reason
-    ].join('\n');
-    var mailto = 'mailto:clay@sunflowerradiance.com?subject=' + encodeURIComponent('New client inquiry - ' + firstName + ' ' + lastName) + '&body=' + encodeURIComponent(lines);
-    window.location.href = mailto;
+    var payload = {
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      phone: phone,
+      location: location,
+      payment: payment + (payment === 'Insurance' ? ' - ' + insurance : ''),
+      reason: reason,
+      _subject: 'New client inquiry - ' + firstName + ' ' + lastName,
+      _replyto: email
+    };
 
-    form.style.display = 'none';
-    document.getElementById('success-box').style.display = '';
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending…';
+
+    fetch(form.action, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(function(res){
+      if (res.ok) {
+        form.style.display = 'none';
+        document.getElementById('success-box').style.display = '';
+      } else {
+        return res.json().then(function(data){
+          var msg = (data && data.errors && data.errors.map(function(x){ return x.message; }).join(', ')) || 'Something went wrong sending your inquiry.';
+          throw new Error(msg);
+        });
+      }
+    }).catch(function(err){
+      errorEl.textContent = err.message + ' Please try again, or email clay@sunflowerradiance.com directly.';
+      errorEl.style.display = '';
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Send inquiry';
+    });
   });
 </script>
 </body>
