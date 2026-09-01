@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact · Schedule with Clay Klaus-Wade</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<div class="page">
+  <div class="wrap" style="max-width:640px">
+    <div class="glow"></div>
+    <nav>
+      <a href="../">Booking</a>
+      <span class="spacer"></span>
+      <a href="../therapy/">Therapy</a>
+      <a href="../meet/">Meetings</a>
+      <a href="../medicare/">Medicare</a>
+    </nav>
+    <div class="hero" style="padding-top:clamp(60px,11vh,110px)">
+      <p class="kicker">New client inquiry</p>
+      <h1 style="font-size:clamp(32px,5.6vw,52px)">Get in touch</h1>
+      <p class="sub">Share a few details and Clay will reach out shortly.</p>
+    </div>
+    <div class="rule"><i></i></div>
+
+    <div id="success-box" class="success-box" style="display:none">
+      <p class="success-label">Ready to send</p>
+      <p>Your email client should have opened with this inquiry addressed to Clay. If it did not open, email <a href="mailto:clay@sunflowerradiance.com">clay@sunflowerradiance.com</a> directly with your details.</p>
+    </div>
+
+    <form id="contact-form" class="form">
+      <div class="row2">
+        <div class="field"><label for="firstName">First name</label><input id="firstName" type="text" required placeholder="George"></div>
+        <div class="field"><label for="lastName">Last name</label><input id="lastName" type="text" required placeholder="Glass"></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label for="email">Email</label><input id="email" type="email" required placeholder="you@email.com"></div>
+        <div class="field"><label for="phone">Phone</label><input id="phone" type="tel" required placeholder="(215) 555-0100"></div>
+      </div>
+      <div class="field">
+        <label for="location">Location</label>
+        <select id="location" required>
+          <option value="">Select one</option>
+          <option value="Pennsylvania">Pennsylvania</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>How will you be paying for sessions?</label>
+        <div class="radio-row">
+          <label class="radio-opt"><input type="radio" name="payment" value="Private pay"><span>Private Pay</span></label>
+          <label class="radio-opt"><input type="radio" name="payment" value="Open Path Member"><span>Open Path Member</span></label>
+          <label class="radio-opt"><input type="radio" name="payment" value="Insurance"><span>Insurance</span></label>
+        </div>
+      </div>
+      <div class="field" id="insurance-field" style="display:none">
+        <label for="insurance">Insurance payer</label>
+        <select id="insurance">
+          <option value="">Select one</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="reason">What brings you to therapy?</label>
+        <textarea id="reason" rows="5" required placeholder="Share what's going on and what you're hoping to work on."></textarea>
+      </div>
+      <label class="check-row"><input type="checkbox" id="consent"><span>I consent to be contacted by Clay Klaus-Wade by email or phone regarding this inquiry.</span></label>
+      <p class="form-error" id="form-error" style="display:none"></p>
+      <button type="submit" class="submit-btn">Send inquiry</button>
+    </form>
+
+    <div class="contact">
+      <a href="mailto:clay@sunflowerradiance.com">clay@sunflowerradiance.com</a>
+      <a href="tel:+12674946962">(267) 494-6962</a>
+      <a href="https://www.sunflowerradiance.com/clay-klaus-wade" target="_blank" rel="noopener">sunflowerradiance.com</a>
+    </div>
+    <div class="tail"></div>
+  </div>
+</div>
+<script>
+  var INSURANCE_OPTIONS = ["Aetna","Allied Trades Assistance Program (ATAP)","Anthem","BCBS Federal Employee Plan","Blue Cross Blue Shield","Capital BlueCross","Cigna","ComPsych","Empire BCBS","Excellus BCBS","Florida Blue","Geisinger (GHP)","Highmark","Homestead / Claim Watcher","Horizon BCBS","Independence Administrators","Independence Blue Cross (IBX)","Jefferson Individual & Family Health Plans","Keystone Health Plan East","Mental Health Consultants (MHC)","Meritain Health","Optum","Oscar","Oxford","Premera BCBS","Regence BCBS","Regional Care","Surest","Tricare","UHC Student Resources","UMR","United Healthcare (UHC)","UPMC","US Family Health Plan","Other"];
+  var insuranceSelect = document.getElementById('insurance');
+  INSURANCE_OPTIONS.forEach(function(opt){
+    var o = document.createElement('option');
+    o.value = opt; o.textContent = opt;
+    insuranceSelect.appendChild(o);
+  });
+
+  var insuranceField = document.getElementById('insurance-field');
+  var paymentRadios = document.querySelectorAll('input[name="payment"]');
+  paymentRadios.forEach(function(r){
+    r.addEventListener('change', function(){
+      var isInsurance = document.querySelector('input[name="payment"]:checked').value === 'Insurance';
+      insuranceField.style.display = isInsurance ? '' : 'none';
+      insuranceSelect.required = isInsurance;
+    });
+  });
+
+  var form = document.getElementById('contact-form');
+  var errorEl = document.getElementById('form-error');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var firstName = document.getElementById('firstName').value.trim();
+    var lastName = document.getElementById('lastName').value.trim();
+    var email = document.getElementById('email').value.trim();
+    var phone = document.getElementById('phone').value.trim();
+    var location = document.getElementById('location').value;
+    var paymentEl = document.querySelector('input[name="payment"]:checked');
+    var payment = paymentEl ? paymentEl.value : '';
+    var insurance = insuranceSelect.value;
+    var reason = document.getElementById('reason').value.trim();
+    var consent = document.getElementById('consent').checked;
+
+    if (!firstName || !lastName || !email || !phone || !location || !payment || !reason) {
+      errorEl.textContent = 'Please fill out all fields before sending.';
+      errorEl.style.display = '';
+      return;
+    }
+    if (payment === 'Insurance' && !insurance) {
+      errorEl.textContent = 'Please select an insurance provider.';
+      errorEl.style.display = '';
+      return;
+    }
+    if (!consent) {
+      errorEl.textContent = 'Please check the consent box to continue.';
+      errorEl.style.display = '';
+      return;
+    }
+    errorEl.style.display = 'none';
+
+    var lines = [
+      'First name: ' + firstName,
+      'Last name: ' + lastName,
+      'Email: ' + email,
+      'Phone: ' + phone,
+      'Location: ' + location,
+      'Payment: ' + payment + (payment === 'Insurance' ? ' - ' + insurance : ''),
+      '',
+      'What brings you to therapy?',
+      reason
+    ].join('\n');
+    var mailto = 'mailto:clay@sunflowerradiance.com?subject=' + encodeURIComponent('New client inquiry - ' + firstName + ' ' + lastName) + '&body=' + encodeURIComponent(lines);
+    window.location.href = mailto;
+
+    form.style.display = 'none';
+    document.getElementById('success-box').style.display = '';
+  });
+</script>
+</body>
+</html>
