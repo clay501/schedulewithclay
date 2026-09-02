@@ -39,7 +39,7 @@
       </div>
       <div class="row2">
         <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" required placeholder="you@email.com"></div>
-        <div class="field"><label for="phone">Phone</label><input id="phone" name="phone" type="tel" required placeholder="(215) 555-0100"></div>
+        <div class="field"><label for="phone">Phone</label><input id="phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel" maxlength="14" required placeholder="(215) 555-0100"></div>
       </div>
       <div class="field">
         <label for="location">Location</label>
@@ -100,6 +100,20 @@
     });
   });
 
+  var phoneInput = document.getElementById('phone');
+  function formatPhone(value){
+    var d = value.replace(/\D/g, '').slice(0, 10);
+    if (d.length === 0) return '';
+    if (d.length < 4) return '(' + d;
+    if (d.length < 7) return '(' + d.slice(0, 3) + ') ' + d.slice(3);
+    return '(' + d.slice(0, 3) + ') ' + d.slice(3, 6) + '-' + d.slice(6);
+  }
+  phoneInput.addEventListener('input', function(){
+    var atEnd = phoneInput.selectionStart === phoneInput.value.length;
+    phoneInput.value = formatPhone(phoneInput.value);
+    if (atEnd) phoneInput.setSelectionRange(phoneInput.value.length, phoneInput.value.length);
+  });
+
   var form = document.getElementById('contact-form');
   var errorEl = document.getElementById('form-error');
   var submitBtn = form.querySelector('.submit-btn');
@@ -118,6 +132,11 @@
 
     if (!firstName || !lastName || !email || !phone || !location || !payment || !reason) {
       errorEl.textContent = 'Please fill out all fields before sending.';
+      errorEl.style.display = '';
+      return;
+    }
+    if (phone.replace(/\D/g, '').length !== 10) {
+      errorEl.textContent = 'Please enter a 10-digit phone number.';
       errorEl.style.display = '';
       return;
     }
