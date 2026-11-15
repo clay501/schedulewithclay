@@ -96,3 +96,5 @@ h1{margin:10px 0 0;font:900 clamp(2rem,5vw,3.4rem)/1.05 var(--display);letter-sp
 .meet-list .choice .go{grid-area:go;margin:0;padding:0}
 .meet-list{gap:12px}
 .meet-list .choice .tag{justify-self:start}
+.nw{white-space:nowrap}
+@media (max-width:400px){h1:has(.nw){font-size:min(2rem,8.6vw)}}
