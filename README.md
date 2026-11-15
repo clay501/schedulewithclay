@@ -2,17 +2,21 @@
 
 Static booking pages for Clay Klaus-Wade, served with GitHub Pages.
 
-- `/` — all booking links
-- `/meet/` — virtual meetings
-- `/therapy/` — therapy sessions (existing clients)
-- `/medicare/` — Medicare consultations
+- `/` — landing page with three choices (brand: klaus-wade.com / layered.health)
+- `/pa/` — therapy in Pennsylvania (Sunflower Radiance Counseling)
+- `/vt/` — therapy in Vermont (NEK Family Counseling Center)
+- `/meet/` — meetings that aren't therapy (30 and 60 min)
+- `/medicare/` — Medicare consultations (keeps its own styling, `styles.css`; linked from the landing footer)
+- `/contact/` — redirect to Jane
+
+New pages use `brand.css`. Booking-link placeholders on `/pa/` and `/vt/` are marked with `data-pending`.
 
 ## Deploy
 
 Copy the contents of this folder to the repository root on `main`, then in
 **Settings → Pages** set Source to *Deploy from a branch*, branch `main`, folder `/ (root)`.
 
-Everything is plain HTML plus one stylesheet (`styles.css`); no build step.
+Everything is plain HTML plus two stylesheets (`brand.css`, and `styles.css` for /medicare/); no build step.
 
 ## Custom domain (schedulewithclay.link, registered at Porkbun)
 
