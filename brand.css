@@ -85,3 +85,5 @@ h1{margin:10px 0 0;font:900 clamp(2rem,5vw,3.4rem)/1.05 var(--display);letter-sp
 .lede a{text-underline-offset:3px}
 .lockup img{height:60px}
 @media (max-width:520px){.lockup img{height:46px}}
+.opts .opt{box-shadow:0 0 0 1px var(--line),0 4px 0 0 var(--edge,var(--sage))}
+.facts dd a{text-underline-offset:3px;font-weight:700}
