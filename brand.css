@@ -61,3 +61,16 @@ h1{margin:10px 0 0;font:900 clamp(2rem,5vw,3.4rem)/1.05 var(--display);letter-sp
 @media (max-width:860px){.choices{grid-template-columns:1fr}.detail{grid-template-columns:1fr}}
 @media (max-width:520px){.lockup img{height:38px}.btn{white-space:normal}}
 @media (prefers-reduced-motion:reduce){.choice,.btn,.back{transition:none}}
+
+/* booking options list (PA page) */
+.opts{display:grid;gap:12px;margin-top:18px}
+.opt{position:relative;display:flex;flex-direction:column;gap:4px;padding:16px 48px 16px 18px;border-radius:16px;background:var(--surface);text-decoration:none;color:var(--ink);box-shadow:0 0 0 1px var(--line),0 4px 0 0 var(--edge,var(--sage));transition:transform .18s ease,box-shadow .18s ease}
+.opt::after{content:"↗";position:absolute;right:18px;top:50%;transform:translateY(-50%);font-weight:800}
+.opt:hover,.opt:focus-visible{transform:translateY(4px);box-shadow:0 0 0 1px var(--line),0 0 0 0 transparent}
+.opt-k{font-size:12px;line-height:16px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.opt-t{font-weight:800;font-size:16px;line-height:1.35}
+.inperson{margin-top:26px;padding-top:22px;border-top:1px solid var(--line)}
+.inperson h3{margin:0;font:900 1.05rem/1.25 var(--display)}
+.inperson p{margin:8px 0 0;font-size:15px}
+.inperson .btns{margin-top:16px}
+@media (prefers-reduced-motion:reduce){.opt{transition:none}}
