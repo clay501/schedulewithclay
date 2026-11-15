@@ -83,3 +83,5 @@ h1{margin:10px 0 0;font:900 clamp(2rem,5vw,3.4rem)/1.05 var(--display);letter-sp
 .facts address{font-style:normal}
 .facts .dd-note{display:block;margin-top:8px;font-size:14px;color:var(--muted)}
 .lede a{text-underline-offset:3px}
+.lockup img{height:60px}
+@media (max-width:520px){.lockup img{height:46px}}
