@@ -88,3 +88,4 @@ h1{margin:10px 0 0;font:900 clamp(2rem,5vw,3.4rem)/1.05 var(--display);letter-sp
 .opts .opt{box-shadow:0 0 0 1px var(--line),0 4px 0 0 var(--edge,var(--sage))}
 .facts dd a{text-underline-offset:3px;font-weight:700}
 .facts .dd-note a{color:var(--ink);font-weight:700;text-underline-offset:3px}
+.facts .dd-plain{display:block;margin-top:8px}
