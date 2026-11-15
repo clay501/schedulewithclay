@@ -89,3 +89,10 @@ h1{margin:10px 0 0;font:900 clamp(2rem,5vw,3.4rem)/1.05 var(--display);letter-sp
 .facts dd a{text-underline-offset:3px;font-weight:700}
 .facts .dd-note a{color:var(--ink);font-weight:700;text-underline-offset:3px}
 .facts .dd-plain{display:block;margin-top:8px}
+/* meeting page: shorter cards, title and Book on one row */
+.meet-list .choice{display:grid;grid-template-columns:1fr auto;grid-template-areas:"tag go" "t go";align-items:center;gap:6px 20px;padding:18px 24px}
+.meet-list .choice .tag{grid-area:tag}
+.meet-list .choice .t{grid-area:t;font-size:clamp(1.1rem,1.6vw,1.3rem)}
+.meet-list .choice .go{grid-area:go;margin:0;padding:0}
+.meet-list{gap:12px}
+.meet-list .choice .tag{justify-self:start}
