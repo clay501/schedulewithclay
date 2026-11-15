@@ -106,3 +106,8 @@ h1{margin:10px 0 0;font:900 clamp(2rem,5vw,3.4rem)/1.05 var(--display);letter-sp
 .ftr-cols .fnote{grid-column:1/-1;margin:4px 0 0}
 @media (max-width:900px){.ftr-cols .wrap{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:520px){.ftr-cols .wrap{grid-template-columns:1fr}}
+.ftr-cols .wrap{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:900px){.ftr-cols .wrap{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.ftr-cols .wrap{grid-template-columns:1fr}}
+.ask{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;margin-top:22px;padding-top:20px;border-top:1px solid var(--line)}
+.ask p{margin:0;font-weight:800;font-size:15px}
