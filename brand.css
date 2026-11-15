@@ -74,3 +74,12 @@ h1{margin:10px 0 0;font:900 clamp(2rem,5vw,3.4rem)/1.05 var(--display);letter-sp
 .inperson p{margin:8px 0 0;font-size:15px}
 .inperson .btns{margin-top:16px}
 @media (prefers-reduced-motion:reduce){.opt{transition:none}}
+
+/* back link as a pill button */
+.back{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border:2px solid var(--ink);border-radius:999px;background:var(--surface);background-image:none;color:var(--ink);font-weight:800;font-size:14px;line-height:18px;letter-spacing:.02em;text-decoration:none;box-shadow:0 4px 0 0 var(--slate);transition:transform .18s ease,box-shadow .18s ease}
+.back::before{content:"←"}
+.back:hover,.back:focus-visible{transform:translateY(4px);box-shadow:none;background-size:auto}
+@media (max-width:520px){.back{padding:8px 12px;font-size:12px}}
+.facts address{font-style:normal}
+.facts .dd-note{display:block;margin-top:8px;font-size:14px;color:var(--muted)}
+.lede a{text-underline-offset:3px}
