@@ -98,3 +98,11 @@ h1{margin:10px 0 0;font:900 clamp(2rem,5vw,3.4rem)/1.05 var(--display);letter-sp
 .meet-list .choice .tag{justify-self:start}
 .nw{white-space:nowrap}
 @media (max-width:400px){h1:has(.nw){font-size:min(2rem,8.6vw)}}
+/* landing footer: one column per practice */
+.ftr-cols .wrap{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px 28px;align-items:start}
+.ftr-cols .fcol{display:flex;flex-direction:column;gap:6px}
+.ftr-cols .fh{margin:0 0 4px;font-weight:800;font-size:14px;color:var(--ink)}
+.ftr-cols .fh span{font-weight:400;color:var(--muted)}
+.ftr-cols .fnote{grid-column:1/-1;margin:4px 0 0}
+@media (max-width:900px){.ftr-cols .wrap{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.ftr-cols .wrap{grid-template-columns:1fr}}
