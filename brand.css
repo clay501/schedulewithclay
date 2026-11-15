@@ -88,3 +88,26 @@ h1{margin:10px 0 0;font:900 clamp(2rem,5vw,3.4rem)/1.05 var(--display);letter-sp
 .opts .opt{box-shadow:0 0 0 1px var(--line),0 4px 0 0 var(--edge,var(--sage))}
 .facts dd a{text-underline-offset:3px;font-weight:700}
 .facts .dd-note a{color:var(--ink);font-weight:700;text-underline-offset:3px}
+.facts .dd-plain{display:block;margin-top:8px}
+/* meeting page: shorter cards, title and Book on one row */
+.meet-list .choice{display:grid;grid-template-columns:1fr auto;grid-template-areas:"tag go" "t go";align-items:center;gap:6px 20px;padding:18px 24px}
+.meet-list .choice .tag{grid-area:tag}
+.meet-list .choice .t{grid-area:t;font-size:clamp(1.1rem,1.6vw,1.3rem)}
+.meet-list .choice .go{grid-area:go;margin:0;padding:0}
+.meet-list{gap:12px}
+.meet-list .choice .tag{justify-self:start}
+.nw{white-space:nowrap}
+@media (max-width:400px){h1:has(.nw){font-size:min(2rem,8.6vw)}}
+/* landing footer: one column per practice */
+.ftr-cols .wrap{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px 28px;align-items:start}
+.ftr-cols .fcol{display:flex;flex-direction:column;gap:6px}
+.ftr-cols .fh{margin:0 0 4px;font-weight:800;font-size:14px;color:var(--ink)}
+.ftr-cols .fh span{font-weight:400;color:var(--muted)}
+.ftr-cols .fnote{grid-column:1/-1;margin:4px 0 0}
+@media (max-width:900px){.ftr-cols .wrap{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.ftr-cols .wrap{grid-template-columns:1fr}}
+.ftr-cols .wrap{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:900px){.ftr-cols .wrap{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.ftr-cols .wrap{grid-template-columns:1fr}}
+.ask{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;margin-top:22px;padding-top:20px;border-top:1px solid var(--line)}
+.ask p{margin:0;font-weight:800;font-size:15px}
